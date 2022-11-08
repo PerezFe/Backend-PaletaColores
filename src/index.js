@@ -1,5 +1,7 @@
 import express from "express";
-
+import morgan from "morgan";
+import cors from "cors"
+import path from "path";
 
 const app  = express();
 
@@ -9,9 +11,15 @@ app.listen(app.get("port"),()=>{
 })
 
 //----------- middlewares --------------
+app.use(morgan("dev"));
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
+app.use(express.static(path.join(__dirname, "../public")));
 
-console.log("hola mundo")
 
 //-------------- rutas: nombre de dominio -------------------
-// http://localhost:4000/
-
+// http://localhost:4001/
+app.get("/paletaColores", (req, res)=>{
+    res.send("Esto es una prueba de la peticion GET")
+})
